@@ -46,16 +46,15 @@
 # Submit a link to a hosted git repository or tarball of the git repository of the finished project to the
 # submission link. In addition, Please email the link to the recruiter.
 
-class AddDinosaurs < ActiveRecord::Migration[7.1]
+class CreateCages < ActiveRecord::Migration[7.1]
   def change
-    create_table :dinosaurs do |t|
+    create_table :cages do |t|
       t.timestamps
 
-      t.string :name, null: false
-      t.string :species, null: false
-      t.references :cage, null: false, foreign_key: true
-    end
+      t.integer :max_capacity, null: false, default: 0
+      # Cages have a power status of ACTIVE or DOWN.
+      t.integer :power_status, null: false, default: 0
 
-    # TODO: Add indexes
+    end
   end
 end

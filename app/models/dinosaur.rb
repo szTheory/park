@@ -46,16 +46,37 @@
 # Submit a link to a hosted git repository or tarball of the git repository of the finished project to the
 # submission link. In addition, Please email the link to the recruiter.
 
-class AddDinosaurs < ActiveRecord::Migration[7.1]
-  def change
-    create_table :dinosaurs do |t|
-      t.timestamps
+class Dinosaur < ApplicationRecord
+  CARNIVORES = %w[tyrannosaurus velociraptor spinosaurus megalosaurus].freeze
+  HERBIVORES = %w[brachiosaurus stegosaurus ankylosaurus triceratops].freeze
+  enum species: CARNIVORES + HERBIVORES
 
-      t.string :name, null: false
-      t.string :species, null: false
-      t.references :cage, null: false, foreign_key: true
+  belongs_to :cage
+
+  validates :name, presence: true
+  validates :species, inclusion: { in: species.keys }
+
+  scope :carnivores, -> { where(species: CARNIVORES) }
+  scope :herbivores, -> { where(species: HERBIVORES) }
+
+  class DinosaursCannotBeMovedIntoAPoweredDownCageValidator < ActiveModel::Validator
+    def validate(record)
+      return unless record.cage.power_status == 'DOWN'
+
+      record.errors.add(:cage, 'cannot be powered down if they contain dinosaurs')
     end
-
-    # TODO: Add indexes
   end
+  validates_with DinosaursCannotBeMovedIntoAPoweredDownCageValidator
+
+  # TODO: add tests
+  class CarnivoresCantBeInSameCageAsHerbivoresValidator < ActiveModel::Validator
+    def validate(record)
+      return unless record.cage
+
+      return unless record.carnivore? && record.cage.herbivores?
+
+      record.errors.add(:cage, :invalid, message: 'carnivores cannot be in same cage as herbivores')
+    end
+  end
+  validates_with CarnivoresCantBeInSameCageAsHerbivoresValidator
 end

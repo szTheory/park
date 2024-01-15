@@ -46,16 +46,27 @@
 # Submit a link to a hosted git repository or tarball of the git repository of the finished project to the
 # submission link. In addition, Please email the link to the recruiter.
 
-class AddDinosaurs < ActiveRecord::Migration[7.1]
-  def change
-    create_table :dinosaurs do |t|
-      t.timestamps
+class Cage < ApplicationRecord
+  has_many :dinosaurs
 
-      t.string :name, null: false
-      t.string :species, null: false
-      t.references :cage, null: false, foreign_key: true
+  enum power_status: %i[ACTIVE DOWN]
+
+  validates :power_status, presence: true, inclusion: { in: power_statuses.keys }
+
+  class CagesCannotBePoweredOffIfTheyContainDinosaursValidator < ActiveModel::Validator
+    def validate(record)
+      return unless record.power_status == 'DOWN' && record.dinosaurs_count.positive?
+
+      record.errors.add(:power_status, 'cannot be powered off if they contain dinosaurs')
     end
+  end
+  validates_with CagesCannotBePoweredOffIfTheyContainDinosaursValidator
 
-    # TODO: Add indexes
+  def dinosaurs_count
+    dinosaurs.count
+  end
+
+  def dinosaurs_in_cage
+    dinosaurs
   end
 end
