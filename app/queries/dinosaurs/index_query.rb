@@ -10,8 +10,12 @@ class Dinosaurs
 
     public
 
-    def dinosaurs
-      dinosaurs_orm.all
+    def dinosaurs(cage_id: nil)
+      scope = dinosaurs_orm
+      scope = scope.where(cage_id:) if cage_id.present?
+
+      scope.all
     end
+    
   end
 end

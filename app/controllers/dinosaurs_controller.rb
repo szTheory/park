@@ -1,6 +1,10 @@
 class DinosaursController < ApplicationController
   def index
-    dinosaurs = Dinosaurs::IndexQuery.new.dinosaurs
+    cage_id = params.fetch(:cage_id, nil)
+
+    dinosaurs = Dinosaurs::IndexQuery.new.dinosaurs(
+      cage_id:
+    )
 
     if dinosaurs
       render json: dinosaurs
