@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Dinosaurs::CreateCommandTest < ActiveSupport::TestCase
   test 'successfully creates a dinosaur' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     dinosaur_params = { name: 'T-Rex', species: 'tyrannosaurus', cage_id: cage.id }
 
     result = Dinosaurs::CreateCommand.new.create!(dinosaur_params:)

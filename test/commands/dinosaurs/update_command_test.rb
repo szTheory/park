@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Dinosaurs::UpdateCommandTest < ActiveSupport::TestCase
   test 'successfully updates a dinosaur' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     dinosaur = Dinosaur.create!(name: 'Velociraptor', species: 'velociraptor', cage:)
     valid_update_params = { name: 'Raptor', species: 'velociraptor' }
 
@@ -16,7 +16,7 @@ class Dinosaurs::UpdateCommandTest < ActiveSupport::TestCase
   end
 
   test 'fails to update a dinosaur with invalid parameters' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     dinosaur = Dinosaur.create!(name: 'T-Rex', species: 'tyrannosaurus', cage:)
     invalid_update_params = { name: '', species: 'unknown' }
 

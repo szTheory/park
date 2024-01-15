@@ -2,8 +2,8 @@ require 'test_helper'
 
 class Dinosaurs::DestroyCommandTest < ActiveSupport::TestCase
   test 'successfully destroys a dinosaur' do
-    cage = Cage.create!(power_status: 'ACTIVE')
-    dinosaur = Dinosaur.create!(name: 'T-Rex', species: 'tyrannosaurus', cage: cage)
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
+    dinosaur = Dinosaur.create!(name: 'T-Rex', species: 'tyrannosaurus', cage:)
 
     result = Dinosaurs::DestroyCommand.new.destroy!(dinosaur_id: dinosaur.id)
 

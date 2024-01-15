@@ -21,7 +21,7 @@ class DinosaurTest < ActiveSupport::TestCase
   end
 
   test 'carnivores can only be in a cage with dinosaurs of the same species' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     Dinosaur.create!(name: 'Veloz', species: 'velociraptor', cage:)
 
     carnivore = Dinosaur.create(name: 'Rexy', species: 'tyrannosaurus', cage:)
@@ -38,7 +38,7 @@ class DinosaurTest < ActiveSupport::TestCase
   end
 
   test 'a carnivore cannot be in a cage with an herbivore' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 2)
     Dinosaur.create!(name: 'Trike', species: 'triceratops', cage:)
     dinosaur = Dinosaur.new(name: 'Rexy', species: 'tyrannosaurus', cage:)
 

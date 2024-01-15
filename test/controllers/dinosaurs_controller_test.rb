@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DinosaursControllerTest < ActionDispatch::IntegrationTest
   test 'index' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     Dinosaur.create!(name: 'T-Rex', species: 'tyrannosaurus', cage:)
 
     get dinosaurs_url(cage)
@@ -12,7 +12,7 @@ class DinosaursControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'show' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     dinosaur = Dinosaur.create!(name: 'T-Rex', species: 'tyrannosaurus', cage:)
 
     get dinosaur_url(dinosaur)
@@ -28,7 +28,7 @@ class DinosaursControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     dinosaur_params = { dinosaur: { name: 'T-Rex', species: 'tyrannosaurus', cage_id: cage.id } }
 
     post dinosaurs_url, params: dinosaur_params
@@ -47,7 +47,7 @@ class DinosaursControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'update' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     dinosaur = Dinosaur.create!(name: 'T-Rex', species: 'tyrannosaurus', cage:)
     update_params = { dinosaur: { name: 'Rexy', species: 'tyrannosaurus' } }
 
@@ -58,7 +58,7 @@ class DinosaursControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'update with invalid params' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     dinosaur = Dinosaur.create!(name: 'T-Rex', species: 'tyrannosaurus', cage:)
     invalid_params = { dinosaur: { name: '', species: 'unknown' } }
 
@@ -68,7 +68,7 @@ class DinosaursControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'destroy' do
-    cage = Cage.create!(power_status: 'ACTIVE')
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
     dinosaur = Dinosaur.create!(name: 'T-Rex', species: 'tyrannosaurus', cage:)
 
     delete dinosaur_url(dinosaur)

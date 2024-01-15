@@ -50,6 +50,16 @@ class Dinosaur < ApplicationRecord
   end
   validates_with CarnivoresCantBeInSameCageAsHerbivoresValidator
 
+  class CageCapacityValidator < ActiveModel::Validator
+    def validate(record)
+      return unless record.cage
+      return unless record.cage.dinosaurs.where.not(id: record.id).count >= record.cage.max_capacity
+
+      record.errors.add(:cage, :invalid, message: 'cannot be moved into a cage at capacity')
+    end
+  end
+  validates_with CageCapacityValidator
+
   enum species: SPECIES
 
   validates :name, presence: true
