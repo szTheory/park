@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_15_022304) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
-    t.string "species", null: false
+    t.integer "species", null: false
     t.integer "cage_id", null: false
     t.index ["cage_id"], name: "index_dinosaurs_on_cage_id"
   end

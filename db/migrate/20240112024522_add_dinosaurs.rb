@@ -52,7 +52,7 @@ class AddDinosaurs < ActiveRecord::Migration[7.1]
       t.timestamps
 
       t.string :name, null: false
-      t.string :species, null: false
+      t.integer :species, null: false
       t.references :cage, null: false, foreign_key: true
     end
 
