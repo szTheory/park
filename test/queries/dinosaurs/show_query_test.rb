@@ -4,7 +4,7 @@ class Dinosaurs::ShowQueryTest < ActiveSupport::TestCase
   test 'retrieves a specific dinosaur by id' do
     cage = Cage.create!(max_capacity: 10, power_status: 'ACTIVE')
     dinosaur1 = Dinosaur.create!(name: 'T-Rex', species: 'tyrannosaurus', cage:)
-    Dinosaur.create!(name: 'Velociraptor', species: 'velociraptor', cage:)
+    Dinosaur.create!(name: 'T-Rex2', species: 'tyrannosaurus', cage:)
 
     result = Dinosaurs::ShowQuery.new.dinosaur(dinosaur_id: dinosaur1.id)
 
