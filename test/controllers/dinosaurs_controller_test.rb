@@ -20,8 +20,20 @@ class DinosaursControllerTest < ActionDispatch::IntegrationTest
     get dinosaurs_url(cage_id: cage1.id)
 
     assert_response :success
+    assert_equal [dinosaur_cage1].to_json, response.body
   end
-  assert_equal [dinosaur_cage1].to_json, response.body
+
+  test 'index filters by species' do
+    cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 3)
+    dinosaur1 = Dinosaur.create!(name: 'T-Rex', species: 'ankylosaurus', cage:)
+    dinosaur2 = Dinosaur.create!(name: 'T-Rex', species: 'ankylosaurus', cage:)
+    Dinosaur.create!(name: 'Velociraptor', species: 'stegosaurus', cage:)
+
+    get dinosaurs_url(species: 'ankylosaurus')
+
+    assert_response :success
+    assert_equal [dinosaur1, dinosaur2].to_json, response.body
+  end
 
   test 'show' do
     cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)

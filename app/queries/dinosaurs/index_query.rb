@@ -1,5 +1,7 @@
 class Dinosaurs
   class IndexQuery
+    Filters = Struct.new(:cage_id, :species, keyword_init: true)
+
     private
 
     attr_reader :dinosaurs_orm
@@ -10,12 +12,12 @@ class Dinosaurs
 
     public
 
-    def dinosaurs(cage_id: nil)
+    def dinosaurs(filters: Filters.new)
       scope = dinosaurs_orm
-      scope = scope.where(cage_id:) if cage_id.present?
+      scope = scope.where(cage_id: filters.cage_id) if filters.cage_id
+      scope = scope.where(species: filters.species) if filters.species
 
       scope.all
     end
-    
   end
 end
