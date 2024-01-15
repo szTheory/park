@@ -1,5 +1,39 @@
 # Ruby on Rails Back End Assessment
 
+## Explanation of Solution
+
+I implemented all requirements, including the bonus ones. The whole API has automated testing. Controllers are using "service objects". I separated them into command/query in case we want to split read/writes across databases for scalability in the future.
+
+Concurrent environment:
+If the application was to run in a concurrency environment, I would use Redis and etag/CDN caching for scalability. And also consider splitting read/write DBs.
+
+Thoughts on project:
+Pretty straightforward project. Surprisingly engaging because of the dinosaurs haha.
+
+Routes built:
+
+```text
+                                  Prefix Verb   URI Pattern                                                                                       Controller#Action
+                                   cages GET    /cages(.:format)                                                                                  cages#index
+                                         POST   /cages(.:format)                                                                                  cages#create
+                                new_cage GET    /cages/new(.:format)                                                                              cages#new
+                               edit_cage GET    /cages/:id/edit(.:format)                                                                         cages#edit
+                                    cage GET    /cages/:id(.:format)                                                                              cages#show
+                                         PATCH  /cages/:id(.:format)                                                                              cages#update
+                                         PUT    /cages/:id(.:format)                                                                              cages#update
+                                         DELETE /cages/:id(.:format)                                                                              cages#destroy
+                               dinosaurs GET    /dinosaurs(.:format)                                                                              dinosaurs#index
+                                         POST   /dinosaurs(.:format)                                                                              dinosaurs#create
+                            new_dinosaur GET    /dinosaurs/new(.:format)                                                                          dinosaurs#new
+                           edit_dinosaur GET    /dinosaurs/:id/edit(.:format)                                                                     dinosaurs#edit
+                                dinosaur GET    /dinosaurs/:id(.:format)                                                                          dinosaurs#show
+                                         PATCH  /dinosaurs/:id(.:format)                                                                          dinosaurs#update
+                                         PUT    /dinosaurs/:id(.:format)                                                                          dinosaurs#update
+                                         DELETE /dinosaurs/:id(.:format)                                                                          dinosaurs#destroy
+```
+
+# Original Prompt
+
 Please get it back to us within 72 hours if possible. If you have any questions please let us know.
 
 ## Overview
@@ -79,4 +113,3 @@ Submit a link to a hosted git repository or tarball of the git repository of the
 - Services (job queues, cache servers, search engines, etc.)
 - Deployment instructions
 - ...
-# park
