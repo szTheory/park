@@ -20,8 +20,8 @@ class DinosaursControllerTest < ActionDispatch::IntegrationTest
     get dinosaurs_url(cage_id: cage1.id)
 
     assert_response :success
-    assert_equal [dinosaur_cage1].to_json, response.body
   end
+  assert_equal [dinosaur_cage1].to_json, response.body
 
   test 'show' do
     cage = Cage.create!(power_status: 'ACTIVE', max_capacity: 1)
