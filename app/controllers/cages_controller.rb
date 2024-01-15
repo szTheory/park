@@ -1,6 +1,8 @@
 class CagesController < ApplicationController
   def index
-    cages = Cages::IndexQuery.new.cages_index
+    power_status = params.fetch(:power_status, nil)
+
+    cages = Cages::IndexQuery.new.cages_index(power_status:)
 
     render json: cages
   end

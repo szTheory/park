@@ -6,11 +6,7 @@ class DinosaursController < ApplicationController
 
     dinosaurs = Dinosaurs::IndexQuery.new.dinosaurs(filters:)
 
-    if dinosaurs
-      render json: dinosaurs
-    else
-      render json: { message: 'Cage not found' }, status: :not_found
-    end
+    render json: dinosaurs
   end
 
   def show

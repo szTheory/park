@@ -10,6 +10,16 @@ class CagesControllerTest < ActionDispatch::IntegrationTest
     assert_equal Cage.all.to_json, response.body
   end
 
+  test 'index filters by power status' do
+    Cage.create!(power_status: 'ACTIVE')
+    Cage.create!(power_status: 'DOWN')
+
+    get cages_url(power_status: 'ACTIVE')
+
+    assert_response :success
+    assert_equal Cage.where(power_status: 'ACTIVE').to_json, response.body
+  end
+
   test 'show' do
     cage = Cage.create!(power_status: 'ACTIVE')
 
