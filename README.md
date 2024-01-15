@@ -13,8 +13,8 @@ Pretty straightforward project. Surprisingly engaging because of the dinosaurs h
 Routes built:
 
 ```text
-                                  Prefix Verb   URI Pattern                                                                                       Controller#Action
                                    cages GET    /cages(.:format)                                                                                  cages#index
+                                  Prefix Verb   URI Pattern                                                                                       Controller#Action
                                          POST   /cages(.:format)                                                                                  cages#create
                                 new_cage GET    /cages/new(.:format)                                                                              cages#new
                                edit_cage GET    /cages/:id/edit(.:format)                                                                         cages#edit
